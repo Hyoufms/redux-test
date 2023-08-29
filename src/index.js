@@ -10,6 +10,7 @@ root.render(
   </React.StrictMode>
 )
 
+//render component agian when state is changed.
 store.subscribe(() => {
   root.render(
     <React.StrictMode>
