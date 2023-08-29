@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+//store is ustilized to acquire the state seved in redux object
 import store from '../../redux/store';
+import {createIncrementAction, createDecrementAction} from '../../redux/count_action'
 
 export default class Count extends Component {
 
@@ -8,13 +10,13 @@ export default class Count extends Component {
     increment = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        store.dispatch({type: 'increment', data: valueInt})
+        store.dispatch(createIncrementAction(valueInt))
     }
 
     decrement = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        store.dispatch({type: 'decrement', data: valueInt})
+        store.dispatch(createDecrementAction(valueInt))
     }
     
     incrementIfOdd = () => {
@@ -22,14 +24,14 @@ export default class Count extends Component {
         if (count % 2 !== 0) {
             const {value} = this.selectedNum;
             const valueInt = parseInt(value, 10);
-            store.dispatch({type: 'increment', data: valueInt})
+            store.dispatch(createIncrementAction(valueInt))
         }
     }
     asyncIncrement = () => {    
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
         setTimeout(
-            () => {store.dispatch({type: 'increment', data: valueInt})}, 500
+            () => {store.dispatch(createIncrementAction(valueInt))}, 500
         )
     }
 
