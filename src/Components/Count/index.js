@@ -1,42 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import store from '../../redux/store';
 
 export default class Count extends Component {
 
-    state = {count: 0}
+    //state = {count: 0}
 
     increment = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        const {count} = this.state;
-        this.setState({count: count + valueInt})
+        store.dispatch({type: 'increment', data: valueInt})
     }
+
     decrement = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        const {count} = this.state;
-        this.setState({count: count - valueInt})
+        store.dispatch({type: 'decrement', data: valueInt})
     }
+    
     incrementIfOdd = () => {
-        const {count} = this.state;
+        const count = store.getState();
         if (count % 2 !== 0) {
             const {value} = this.selectedNum;
             const valueInt = parseInt(value, 10);
-            this.setState({count: count + valueInt})
+            store.dispatch({type: 'increment', data: valueInt})
         }
     }
     asyncIncrement = () => {    
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        const {count} = this.state;
         setTimeout(
-            () => {this.setState({count: count + valueInt})}, 500
+            () => {store.dispatch({type: 'increment', data: valueInt})}, 500
         )
     }
 
     render() {
         return (
             <div>
-                <h1>sum: {this.state.count}</h1>
+                <h1>sum: {store.getState()}</h1>
                 <select ref={c => this.selectedNum = c}>
                     <option value="1">1</option>
                     <option value="2">2</option>
