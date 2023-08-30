@@ -1,5 +1,5 @@
 // this is reducer function
-import { INCREMENT, DECREMENT } from "./constant";
+import { INCREMENT, DECREMENT } from "../constant";
 // import { CreateSlice } from "@reduxjs/toolkit";
 
 const initState = 0;

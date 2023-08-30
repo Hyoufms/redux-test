@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from 'redux';
-import countReducer from './count_reducer';
+import countReducer from './reducers/count';
 // import { createSlice, configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';// for async action
 

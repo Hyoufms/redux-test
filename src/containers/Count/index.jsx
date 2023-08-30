@@ -1,46 +1,62 @@
 import React, { Component } from 'react';
-//store is ustilized to acquire the state seved in redux object
-import store from '../../redux/store';
+
 import {
     createIncrementAction, 
     createDecrementAction, 
     createAsyncIncrementAction
-} from '../../redux/count_action'
+} from "../../redux/actions/count"
+import { connect } from "react-redux"; // for connecting container and UI
 
-export default class Count extends Component {
+//#region 
+// the object returned will be consider as the key and value of props - state
+/*function mapStateToProps(state) {
+    return {count:state}
+}*/
 
-    //state = {count: 0}
+//  the object returned will be consider as the key and value of props - method for manipulate state
+/*function mapDispatchToProps(dispatch) {
+    return {
+        increment: data => dispatch(createIncrementAction(data)),
+        decrement: data => dispatch(createDecrementAction(data)),
+        asyncIncrement: data => dispatch(createAsyncIncrementAction(data, 500))
+    }
+}*/
+//#endregion
+//create and export a container for count
+
+class Count extends Component {
 
     increment = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        store.dispatch(createIncrementAction(valueInt))
+        this.props.increment(valueInt)
+        
     }
 
     decrement = () => {
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        store.dispatch(createDecrementAction(valueInt))
+        this.props.decrement(valueInt)
     }
     
     incrementIfOdd = () => {
-        const count = store.getState();
-        if (count % 2 !== 0) {
+        if (this.props.count % 2 !== 0) {
             const {value} = this.selectedNum;
             const valueInt = parseInt(value, 10);
-            store.dispatch(createIncrementAction(valueInt))
+            this.props.increment(valueInt)
         }
     }
+
     asyncIncrement = () => {    
         const {value} = this.selectedNum;
         const valueInt = parseInt(value, 10);
-        store.dispatch(createAsyncIncrementAction(valueInt, 500))
+        this.props.asyncIncrement(valueInt, 500)
     }
 
     render() {
         return (
             <div>
-                <h1>sum: {store.getState()}</h1>
+                <h1>sum: {this.props.count}</h1>
                 <select ref={c => this.selectedNum = c}>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -54,3 +70,12 @@ export default class Count extends Component {
         )
     }
 }
+
+export default connect(
+    state => ({count:state}), 
+    {
+        increment: createIncrementAction,
+        decrement: createDecrementAction,
+        asyncIncrement: createAsyncIncrementAction
+    }
+)(Count);

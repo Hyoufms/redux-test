@@ -1,9 +1,9 @@
-import Count from "./Components/Count"
+import Count from "./containers/Count"
 
 function App() {
     return (
         <div>
-            <Count />
+            <Count/>
         </div>
     );
 }

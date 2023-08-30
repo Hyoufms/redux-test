@@ -1,5 +1,5 @@
 // this is to create action object
-import { INCREMENT, DECREMENT } from "./constant";
+import { INCREMENT, DECREMENT } from "../constant";
 /*
 function createIncrementAction (data) {
     return {type:'increment', data}
